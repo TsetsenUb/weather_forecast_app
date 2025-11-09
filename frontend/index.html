@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Прогноз погоды</title>
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="logo">Узнай прогноз погоды</div>
+        <div class="nav-buttons">
+            <button class="btn profile-btn" id="profileBtn"></button>
+            <button class="btn login-btn" id="loginBtn">Войти</button>
+            <button class="btn register-btn" id="registerBtn">Зарегистрироваться</button>
+
+            <div class="dropdown-form" id="profileForm">
+                <button class="close-btn" id="closeProfile">×</button>
+                <button class="close-btn" id="closeChange">×</button>
+                <h3 class="form-title">Профиль</h3>
+                <form>
+                    <div class="form-group change-group"><label>Заполните поля которые хотите изменить</label></div>
+                    <div class="form-group change-group">
+                        <label for="changeName">Имя</label>
+                        <input type="text" id="changeName" placeholder="Введите новое имя" minlength="3" maxlength="50">
+                    </div>
+                    <div class="form-group change-group">
+                        <label for="changeEmail">Email</label>
+                        <input type="email" id="changeEmail" placeholder="Введите новый email" maxlength="100">
+                    </div>
+                    <div class="form-group change-group">
+                        <label for="changePassword">Пароль</label>
+                        <input type="password" id="changePassword" placeholder="Введите новый пароль" minlength="8" maxlength="255">
+                    </div>
+                    <div class="form-group change-group">
+                        <label for="changePassword">Подтвердите пароль</label>
+                        <input type="password" id="changeConfirmPassword" placeholder="Повторите новый пароль" minlength="8" maxlength="255">
+                    </div>
+                    <div class="form-group change-group">
+                        <label for="changeCityName">Город проживания</label>
+                        <input type="text" id="changeCityName" placeholder="Введите название города" minlength="3" maxlength="50">
+                    </div>
+                    <div class="form-group change-group">
+                        <button type="submit" class="form-submit" id="saveChangeBtn">Сохранить изменения</button>
+                    </div>
+                    <div class="form-buttons" id="formButtons">
+                        <button type="button" class="btn change-btn" id="changeBtn">Изменить данные</button>
+                        <button type="button" class="btn logout-btn" id="logoutBtn">Выйти</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="dropdown-form" id="loginForm">
+                <button class="close-btn" id="closeLogin">×</button>
+                <h3 class="form-title">Вход в аккаунт</h3>
+                <form>
+                    <div class="form-group">
+                        <label for="loginEmail">Email</label>
+                        <input type="text" id="loginEmail" placeholder="Введите email" maxlength="100" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Пароль</label>
+                        <input type="password" id="loginPassword" placeholder="Введите пароль" minlength="8" maxlength="255" required>
+                    </div>
+                    <button type="submit" id="login" class="form-submit">Войти</button>
+                </form>
+            </div>
+
+            <div class="dropdown-form" id="registerForm">
+                <button class="close-btn" id="closeRegister">×</button>
+                <h3 class="form-title">Регистрация</h3>
+                <form>
+                    <div class="form-group">
+                        <label for="registerName">Имя <i>*</i></label>
+                        <input type="text" id="registerName" placeholder="Введите ваше имя" minlength="3" maxlength="50" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerEmail">Email <i>*</i></label>
+                        <input type="email" id="registerEmail" placeholder="Введите email" maxlength="100" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPassword">Пароль <i>*</i></label>
+                        <input type="password" id="registerPassword" placeholder="Придумайте пароль" minlength="8" maxlength="255" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerConfirmPassword">Подтвердите пароль <i>*</i></label>
+                        <input type="password" id="registerConfirmPassword" placeholder="Повторите пароль" minlength="8" maxlength="255" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerCityName">Город проживания</label>
+                        <input type="text" id="registerCityName" placeholder="Введите название города" minlength="3" maxlength="50">
+                    </div>
+                    <div class="form-group bottom"><i>* - обязательные поля</i> </div>
+                    <button type="submit" id="registration" class="form-submit">Зарегистрироваться</button>
+                </form>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="search-section">
+            <form class="search-form" id="weatherForm">
+                <input
+                    type="text"
+                    class="city-input"
+                    id="cityInput"
+                    placeholder="Введите название города..."
+                    minlength="3"
+                    maxlength="50"
+                    required
+                >
+                <button type="submit" class="btn search-btn">Получить прогноз</button>
+            </form>
+        </div>
+
+        <div class="error" id="errorMessage"></div>
+
+        <div class="loading" id="loading" style="display: none;">
+            Загрузка данных...
+        </div>
+
+        <div class="weather-section" id="weatherSection">
+            <div class="current-weather" id="currentWeather">
+            </div>
+
+            <div class="hourly-forecasts" id="hourlyForecasts">
+            </div>
+
+            <details class="following-days" id="followingDays">
+            </details>
+        </div>
+    </main>
+
+    <script src="/js/token.js"></script>
+    <script src="/js/login_user.js"></script>
+    <script src="/js/registration_user.js"></script>
+    <script src="/js/weather.js"></script>
+    <script src="/js/profile_user.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+</html>

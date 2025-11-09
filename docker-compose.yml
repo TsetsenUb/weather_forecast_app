@@ -1,0 +1,50 @@
+services:
+  postgres_db:
+    image: postgres:18-alpine
+    env_file: .env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+    networks:
+      - weather-app-network
+
+  backend:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    image: weather-app-backend:latest
+    command: uvicorn app.main:app --host 0.0.0.0
+    ports:
+      - 8000:8000
+    env_file:
+      - .env
+    volumes:
+      - ./.env:/home/backend/app/.env
+    depends_on:
+      - postgres_db
+    networks:
+      - weather-app-network
+
+  nginx:
+    image: nginx:1.29-alpine
+    ports:
+      - 80:80
+    volumes:
+      - ./frontend:/usr/share/nginx/static
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - backend
+      - postgres_db
+    networks:
+      - weather-app-network
+
+volumes:
+  postgres_data:
+    name: weather_app_postgres_data
+
+networks:
+  weather-app-network:
+    driver: bridge
