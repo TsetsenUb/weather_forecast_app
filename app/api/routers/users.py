@@ -15,7 +15,7 @@ router = APIRouter(prefix="/api/users", tags=["Users"])
 
 @router.get("/", response_model=UserOut, status_code=status.HTTP_200_OK)
 async def get_user(
-    user_id: Annotated[int, Query(..., gt=0)],
+    user_id: Annotated[int, Query(gt=0)],
     user_service: Annotated[UserService, Depends(get_user_service)]
 ):
     """

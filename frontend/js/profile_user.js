@@ -68,7 +68,7 @@ async function changeUserProfileData () {
     const newPassword = document.getElementById("changePassword").value;
     const newConfirmPassword = document.getElementById("changeConfirmPassword").value;
 
-    if (newPassword && newConfirmPassword && newPassword != newConfirmPassword) {
+    if (newPassword && newPassword != newConfirmPassword) {
         alert("Пароли не совпадают!");
         return;
     }
