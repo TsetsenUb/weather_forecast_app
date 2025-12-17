@@ -2,7 +2,7 @@ from app.crud.users import UserCrud
 from app.schemas.users import UserIn
 from app.models.users import User
 from app.core.security import verify_password, hash_password
-from app.utils import app_exc
+from app.utils import app_exceptions
 
 
 class UserService:
@@ -20,7 +20,7 @@ class UserService:
 
         if not db_user or db_user.is_active is False or \
            not verify_password(password, db_user.hashed_password):
-            raise app_exc.UNAUTHORIZED_401
+            raise app_exceptions.UNAUTHORIZED_401
 
         return db_user
 
@@ -31,7 +31,7 @@ class UserService:
         """
 
         if await self.user_crud.get_user_by_email(user.email):
-            raise app_exc.BAD_REQUEST_EMAIL_400
+            raise app_exceptions.BAD_REQUEST_EMAIL_400
 
         new_user = await self.user_crud.create_user(user)
         return new_user
@@ -43,7 +43,7 @@ class UserService:
 
         db_user = await self.user_crud.get_user(user_id, active)
         if not db_user:
-            raise app_exc.BAD_REQUEST_USER_400
+            raise app_exceptions.BAD_REQUEST_USER_400
         return db_user
 
     async def update_user(self, user_id: int, user_data: UserIn) -> User:
@@ -55,7 +55,7 @@ class UserService:
         new_email = new_user_data.pop("email", None)
         if new_email:
             if await self.user_crud.get_user_by_email(new_email):
-                raise app_exc.BAD_REQUEST_EMAIL_400
+                raise app_exceptions.BAD_REQUEST_EMAIL_400
             new_user_data.update({"email": new_email})
 
         new_password = new_user_data.pop("password", None)
@@ -63,10 +63,10 @@ class UserService:
             new_user_data.update({"hashed_password": hash_password(new_password)})
 
         if not new_user_data:
-            raise app_exc.BAD_REQUEST_NOT_DATA_400
+            raise app_exceptions.BAD_REQUEST_NOT_DATA_400
 
         updated_user = await self.user_crud.update_user(user_id, new_user_data)
         if not updated_user:
-            raise app_exc.BAD_REQUEST_USER_400
+            raise app_exceptions.BAD_REQUEST_USER_400
 
         return updated_user
