@@ -5,6 +5,7 @@
 ## Архитектура
 - **Backend**: FastAPI
 - **База данных**: SQLAlchemy + Postgres
+- **Кэш**: Redis
 - **Валидация данных**: Pydantic
 - **Аутентификация**: pwdlib
 - **Фронтенд**: SPA в каталоге `frontend`
@@ -16,6 +17,7 @@
 - Быстрый REST API на FastAPI
 - ORM: SQLAlchemy
 - Валидация и схемы: Pydantic
+- Redis: хранение прогнозов погоды в кеше (с временем истечения)
 - Хранение паролей: pwdlib
 - Возможность запуска через Docker / docker-compose
 - Nginx в качестве обратного прокси (в docker-compose)
@@ -23,7 +25,7 @@
 
 
 ## Документация OpenAPI
-- http://localhost:8000/docs (Swagger UI) или http://localhost:8000/redoc
+- Swagger UI
 
 
 ## Запуск через Docker
@@ -32,14 +34,12 @@
 - Остановить и удалить контейнеры:
     docker compose down
 
-По умолчанию:Backend доступен на порту, указанном в docker-compose (8000)
-Nginx проксирует трафик на 80
-
 ## Файлы конфигурации
 - .env.example — шаблон переменных окружения
 - Dockerfile — сборка образа backend
 - docker-compose.yml — конфигурация сервисов (backend, postgres_db, frontend, nginx)
 - nginx.conf — настройка обратного прокси (для Docker)
+- redis.conf — конфигурация Redis
 
 ## Переменные окружения (важные)
 - SECRET_KEY — секрет для генерации токенов / сессий
@@ -48,6 +48,7 @@ Nginx проксирует трафик на 80
 - DB_USER — имя пользователя базы данных
 - DB_PASSWORD — пароль базы данных
 - DB_NAME — имя базы данных
+- REDIS_FORECAST_EXPIRE_SEC — время хранения кэша в Redis (в секундах)
 
 ## Структура проекта (важные каталоги и файлы)
 - app/ — backend код (FastAPI)main.py — точка входа приложения
@@ -61,7 +62,6 @@ Nginx проксирует трафик на 80
 - schemas/ — Pydantic схемы
 - services/ — логика работы с внешними API (погода) и базой данных
 - utils/ - исключения и конвертеры
-
 - frontend/ — SPA frontend (html, css, javascript)
 - requirements.txt — зависимости Python
 - Dockerfile, docker-compose.yml, nginx.conf — контейнеризация
