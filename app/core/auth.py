@@ -21,7 +21,11 @@ def create_access_token(data: dict) -> str:
     to_encode = data.copy()
     expire = datetime.now(timezone.utc) + timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     to_encode.update({"exp": expire})
-    return jwt.encode(to_encode, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
+    return jwt.encode(
+        to_encode,
+        settings.SECRET_KEY.get_secret_value(),
+        algorithm=settings.ALGORITHM.get_secret_value(),
+    )
 
 
 async def get_authorized_user(
@@ -35,8 +39,8 @@ async def get_authorized_user(
     try:
         payload = jwt.decode(
             token,
-            settings.SECRET_KEY,
-            algorithms=settings.ALGORITHM,
+            settings.SECRET_KEY.get_secret_value(),
+            algorithms=settings.ALGORITHM.get_secret_value(),
         )
         token_data = TokenData(**payload)
     except jwt.ExpiredSignatureError:

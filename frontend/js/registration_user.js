@@ -38,13 +38,13 @@ async function registrationUser () {
 
     try {
         const weatherSection = document.getElementById("weatherSection");
-        const res = await fetch("http://localhost:8000/api/users/", {
+        const res = await fetch(`${window.location.origin}/api/users/`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(newUserData),
         });
 
-        if (res.status != "201") {
+        if (res.status !== 201) {
             const er = await res.json();
             cityInput.value = "";
             weatherSection.classList.remove("active");
@@ -63,3 +63,5 @@ async function registrationUser () {
     }
     registerForm.classList.remove("active");
 }
+
+export { addRegisterFormClickListeners, registrationUser };

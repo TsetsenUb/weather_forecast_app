@@ -1,6 +1,8 @@
 services:
   postgres_db:
     image: postgres:18-alpine
+    container_name: weather-postgres
+    restart: unless-stopped
     env_file: .env
     volumes:
       - postgres_data:/var/lib/postgresql/data
@@ -9,9 +11,25 @@ services:
       - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_DB=${DB_NAME}
     networks:
-      - weather-app-network
+      - weather-network
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  redis:
+    image: redis:7.4.7-alpine
+    container_name: weather-redis
+    restart: unless-stopped
+    volumes:
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf
+    networks:
+      - weather-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -21,37 +39,42 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
-    image: weather-app-backend:latest
-    command: uvicorn app.main:app --host 0.0.0.0
-    ports:
-      - 8000:8000
-    env_file:
-      - .env
+    container_name: weather-backend
+    restart: unless-stopped
+    image: weather-backend:latest
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000
+    env_file: .env
     volumes:
       - ./.env:/home/backend/app/.env
+    networks:
+      - weather-network
     depends_on:
       postgres_db:
         condition: service_healthy
-    networks:
-      - weather-app-network
+      redis:
+        condition: service_started
 
   nginx:
     image: nginx:1.29-alpine
+    container_name: weather-nginx
+    restart: unless-stopped
     ports:
       - 80:80
     volumes:
-      - ./frontend:/usr/share/nginx/static
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./frontend:/usr/share/nginx/static:ro
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    networks:
+      - weather-network
     depends_on:
       - backend
-      - postgres_db
-    networks:
-      - weather-app-network
 
 volumes:
   postgres_data:
-    name: weather_app_postgres_data
+    name: weather-postgres-data
 
 networks:
-  weather-app-network:
+  weather-network:
     driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

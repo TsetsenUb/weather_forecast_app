@@ -1,4 +1,4 @@
-from fastapi import Depends
+from fastapi import Depends, Query
 from app.clients.open_weather_map.client import OpenWeatherMapClient
 from app.clients.open_weather_map.parsers import OpenWeatherMapForecastParser
 from typing import Annotated
@@ -16,7 +16,10 @@ def get_owp_client() -> OpenWeatherMapClient:
     """
     Возвращает объект класса OpenWeatherMapClient
     """
-    return OpenWeatherMapClient(settings.OWM_APPID, settings.OWM_FORECAST_URL)
+    return OpenWeatherMapClient(
+        settings.OWM_APPID.get_secret_value(),
+        settings.OWM_FORECAST_URL,
+    )
 
 
 def get_owp_parser() -> OpenWeatherMapForecastParser:
@@ -54,3 +57,12 @@ async def get_current_user(
     """
     current_user = await get_authorized_user(token, user_crud)
     return current_user
+
+
+async def get_query_city(
+        city: Annotated[str, Query(..., min_length=3, max_length=50)]
+) -> str:
+    """
+    Возвращает Query-параметр city, после применения методов strip и title
+    """
+    return city.strip().title()

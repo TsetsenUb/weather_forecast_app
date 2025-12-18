@@ -1,3 +1,6 @@
+import { getValidTokenPayload } from "./token.js";
+
+
 function addProfileFormClickListeners () {
     const profileBtn = document.getElementById("profileBtn");
     const profileForm = document.getElementById("profileForm");
@@ -92,7 +95,7 @@ async function changeUserProfileData () {
     const weatherSection = document.getElementById("weatherSection");
 
     try {
-        const res = await fetch("http://localhost:8000/api/users/", {
+        const res = await fetch(`${window.location.origin}/api/users/`, {
             method: "PATCH",
             headers: {
                 "Authorization": `Bearer ${localStorage.getItem("access_token")}`,
@@ -129,3 +132,11 @@ async function changeUserProfileData () {
     }
     document.getElementById("profileForm").classList.remove("active");
 }
+
+export {
+    addProfileFormClickListeners,
+    addChangeBtnListener,
+    closeChangeForm,
+    addLogoutListener,
+    changeUserProfileData,
+};

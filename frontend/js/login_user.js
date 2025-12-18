@@ -1,3 +1,6 @@
+import { getValidTokenPayload } from "./token.js";
+
+
 function addLoginFormClickListeners () {
     const loginBtn = document.getElementById("loginBtn");
     const loginForm = document.getElementById("loginForm");
@@ -54,12 +57,12 @@ async function loginUser () {
         formData.append("username", document.getElementById("loginEmail").value);
         formData.append("password", document.getElementById("loginPassword").value);
 
-        const res = await fetch("http://localhost:8000/api/users/token", {
+        const res = await fetch(`${window.location.origin}/api/users/token`, {
             method: "POST",
             body: formData,
         });
 
-        if (res.status != "201") {
+        if (res.status !== 201) {
             document.getElementById("cityInput").value = "";
             document.getElementById("weatherSection").classList.remove("active");
             const er = await res.json();
@@ -78,3 +81,10 @@ async function loginUser () {
         errorMessage.classList.add("active");
     }
 }
+
+export {
+    addLoginFormClickListeners,
+    addClickRemoveListener,
+    showLoginAndRegistration,
+    loginUser,
+};

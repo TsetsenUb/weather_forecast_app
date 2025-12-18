@@ -15,7 +15,7 @@ class UserBase(BaseModel):
     def validate_address(cls, v: str):
         if v == "":
             return None
-        return v
+        return v.strip().title()
 
 
 class UserIn(UserBase):

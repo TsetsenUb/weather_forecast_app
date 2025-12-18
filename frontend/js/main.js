@@ -1,3 +1,28 @@
+import { getValidTokenPayload } from "./token.js";
+
+import {
+    addLoginFormClickListeners,
+    addClickRemoveListener,
+    showLoginAndRegistration,
+    loginUser,
+} from "./login_user.js";
+
+import {
+    addProfileFormClickListeners,
+    addChangeBtnListener,
+    closeChangeForm,
+    addLogoutListener,
+    changeUserProfileData,
+} from "./profile_user.js";
+
+import {
+    addRegisterFormClickListeners,
+    registrationUser
+} from "./registration_user.js";
+
+import { getAndDisplayForecast } from "./weather.js";
+
+
 document.addEventListener("DOMContentLoaded", async function() {
     const tokenPayload = getValidTokenPayload(localStorage.getItem("access_token"));
 

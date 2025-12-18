@@ -23,3 +23,5 @@ function getValidTokenPayload(token) {
 
     return payload;
 }
+
+export { getValidTokenPayload };

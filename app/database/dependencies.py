@@ -1,5 +1,6 @@
 from sqlalchemy.ext.asyncio import AsyncSession
-from fastapi import Depends
+from fastapi import Request, Depends
+from redis.asyncio import Redis
 from typing import AsyncGenerator, Annotated
 
 from app.database.connection import async_session_maker
@@ -21,3 +22,10 @@ async def get_user_crud(
     Возвращает объект класса UserCrud для работы с базой данных
     """
     return UserCrud(db_session)
+
+
+async def get_redis(request: Request) -> Redis:
+    """
+    Возвращает Redis из app.state
+    """
+    return request.app.state.redis

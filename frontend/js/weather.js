@@ -171,7 +171,7 @@ async function getAndDisplayForecast () {
     errorMessage.classList.remove("active");
 
     try {
-        const res = await fetch(`http://localhost:8000/api/forecast/?city=${encodeURIComponent(city)}`);
+        const res = await fetch(`${window.location.origin}/api/forecast/?city=${encodeURIComponent(city)}`);
 
         if (!res.ok) {
             throw new Error("Город не найден или произошла ошибка сервера");
@@ -188,3 +188,5 @@ async function getAndDisplayForecast () {
         loading.style.display = "none";
     }
 }
+
+export { getAndDisplayForecast };
