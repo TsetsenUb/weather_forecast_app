@@ -4,6 +4,7 @@ import {
     addLoginFormClickListeners,
     addClickRemoveListener,
     showLoginAndRegistration,
+    showProfileBtn,
     loginUser,
 } from "./login_user.js";
 

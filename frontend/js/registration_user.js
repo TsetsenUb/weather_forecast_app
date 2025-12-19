@@ -52,7 +52,6 @@ async function registrationUser () {
         }
         alert("Регистрация прошла успешно");
         if (address) {
-            cityInput.value = address;
             weatherSection.classList.remove("active");
         }
 

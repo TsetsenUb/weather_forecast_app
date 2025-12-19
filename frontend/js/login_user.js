@@ -86,5 +86,6 @@ export {
     addLoginFormClickListeners,
     addClickRemoveListener,
     showLoginAndRegistration,
+    showProfileBtn,
     loginUser,
 };
