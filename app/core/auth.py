@@ -7,7 +7,7 @@ from app.models.users import User
 from app.schemas.tokens import TokenData
 from app.core.config import settings
 from app.services.users import UserService
-from app.utils import app_exceptions
+from app.utils.app_exceptions import Expired401, Unauthorized401
 
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/users/token")
@@ -44,9 +44,9 @@ async def get_authorized_user(
         )
         token_data = TokenData(**payload)
     except jwt.ExpiredSignatureError:
-        raise app_exceptions.EXPIRED_401
+        raise Expired401
     except (jwt.PyJWKError, ValidationError):
-        raise app_exceptions.UNAUTHORIZED_401
+        raise Unauthorized401
 
     user = await user_service.get_user(token_data.id)
     return user

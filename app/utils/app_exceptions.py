@@ -1,29 +1,60 @@
 from fastapi import HTTPException, status
 
 
-UNAUTHORIZED_401 = HTTPException(
-    status_code=status.HTTP_401_UNAUTHORIZED,
-    detail="Не удалось подтвердить учетные данные",
-    headers={"WWW-Authenticate": "Bearer"},
-)
+class Unauthorized401(HTTPException):
+    def __init__(
+            self,
+            detail: str = "Не удалось подтвердить учетные данные",
+            headers: dict = {"WWW-Authenticate": "Bearer"},
+    ):
+        super().__init__(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail=detail,
+            headers=headers,
+        )
 
-EXPIRED_401 = HTTPException(
-    status_code=status.HTTP_401_UNAUTHORIZED,
-    detail="Срок действия токена истек",
-    headers={"WWW-Authenticate": "Bearer"},
-)
 
-BAD_REQUEST_NOT_DATA_400 = HTTPException(
-    status_code=status.HTTP_400_BAD_REQUEST,
-    detail="Нет данных для обновления"
-)
+class Expired401(HTTPException):
+    def __init__(
+            self,
+            detail: str = "Срок действия токена истек",
+            headers: dict = {"WWW-Authenticate": "Bearer"},
+    ):
+        super().__init__(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail=detail,
+            headers=headers,
+        )
 
-BAD_REQUEST_EMAIL_400 = HTTPException(
-    status_code=status.HTTP_400_BAD_REQUEST,
-    detail="Почта уже зарегистрирована"
-)
 
-BAD_REQUEST_USER_400 = HTTPException(
-    status_code=status.HTTP_400_BAD_REQUEST,
-    detail="Пользователь не найден"
-)
+class BadRequestNotData400(HTTPException):
+    def __init__(
+            self,
+            detail: str = "Нет данных для обновления",
+    ):
+        super().__init__(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=detail,
+        )
+
+
+class BadRequestEmail400(HTTPException):
+    def __init__(
+            self,
+            detail: str = "Почта уже зарегистрирована",
+    ):
+        super().__init__(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=detail,
+        )
+
+
+class BadRequestUser400(HTTPException):
+    def __init__(
+            self,
+            detail: str = "Пользователь не найден",
+    ):
+        super().__init__(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=detail,
+        )
