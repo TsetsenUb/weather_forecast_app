@@ -40,10 +40,8 @@ async def connect_to_redis(db: int = 0) -> Redis:
     """
     Подключение к redis
     """
-    redis = Redis(
+    return Redis(
         host=settings.REDIS_HOST,
         port=settings.REDIS_PORT,
         db=db,
     )
-
-    return redis
