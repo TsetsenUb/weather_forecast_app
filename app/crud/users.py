@@ -8,7 +8,7 @@ from app.core.security import hash_password
 
 class UserCrud:
     def __init__(self, db: AsyncSession):
-        self.db: AsyncSession = db
+        self.db = db
 
     async def create_user(self, user: UserIn) -> User:
         """
