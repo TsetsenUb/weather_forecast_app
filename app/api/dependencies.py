@@ -1,8 +1,8 @@
 from fastapi import Depends, Query
-from app.clients.open_weather_map.client import OpenWeatherMapClient
-from app.clients.open_weather_map.parsers import OpenWeatherMapForecastParser
 from typing import Annotated
 
+from app.clients.open_weather_map.client import OpenWeatherMapClient
+from app.clients.open_weather_map.parsers import OpenWeatherMapForecastParser
 from app.services.weather import WeatherService
 from app.core.config import settings
 from app.crud.users import UserCrud
