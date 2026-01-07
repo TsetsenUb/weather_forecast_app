@@ -7,7 +7,14 @@ from app.core.lifespan import lifespan
 from app.core.config import settings
 
 
-app = FastAPI(title="Weather_App", lifespan=lifespan)
+app = FastAPI(
+    title="Weather_App",
+    lifespan=lifespan,
+    root_path="/api",
+    docs_url="/docs",
+    redoc_url="/redoc",
+    openapi_url="/openapi.json",
+)
 
 app.middleware("http")(log_requests)
 

@@ -10,7 +10,7 @@ from app.api.dependencies import get_user_service, get_current_user
 from app.core.auth import create_access_token
 
 
-router = APIRouter(prefix="/api/users", tags=["Users"])
+router = APIRouter(prefix="/users", tags=["Users"])
 
 
 @router.get("/{user_id}", response_model=UserOut, status_code=status.HTTP_200_OK)

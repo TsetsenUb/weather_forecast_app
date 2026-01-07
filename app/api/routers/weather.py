@@ -10,7 +10,7 @@ from app.database.dependencies import get_redis
 from app.core.config import settings
 
 
-router = APIRouter(prefix="/api/forecast", tags=["Weather"])
+router = APIRouter(prefix="/forecast", tags=["Forecast"])
 
 
 @router.get("/", response_model=Forecast, status_code=status.HTTP_200_OK)

@@ -25,7 +25,9 @@
 
 
 ## Документация OpenAPI
-- Swagger UI
+- http://localhost/api/docs
+- http://localhost/api/redoc
+- http://localhost/api/openapi.json
 
 
 ## Запуск через Docker
