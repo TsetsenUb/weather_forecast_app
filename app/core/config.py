@@ -28,5 +28,7 @@ class Settings(BaseSettings):
     ALLOW_METHODS: list[str]
     ALLOW_HEADERS: list[str]
 
+    TEST_DATABASE_URL: str
+
 
 settings = Settings()
