@@ -11,7 +11,7 @@
 - **Фронтенд**: SPA в каталоге `frontend`
 - **Контейнеризация**: Docker + docker-compose
 - **Прокси**: Nginx
-
+- **Тестирование**: Pytest
 
 ## Особенности
 - Быстрый REST API на FastAPI
@@ -22,6 +22,7 @@
 - Возможность запуска через Docker / docker-compose
 - Nginx в качестве обратного прокси (в docker-compose)
 - Client: SPA (frontend) в папке frontend
+- Тестирование: Pytest
 
 
 ## Документация OpenAPI
@@ -42,6 +43,7 @@
 - docker-compose.yml — конфигурация сервисов (backend, postgres_db, frontend, nginx)
 - nginx.conf — настройка обратного прокси (для Docker)
 - redis.conf — конфигурация Redis
+- pytest.ini - конфигурация pytest
 
 ## Переменные окружения (важные)
 - SECRET_KEY — секрет для генерации токенов / сессий
@@ -51,6 +53,7 @@
 - DB_PASSWORD — пароль базы данных
 - DB_NAME — имя базы данных
 - REDIS_FORECAST_EXPIRE_SEC — время хранения кэша в Redis (в секундах)
+- TEST_DATABASE_URL - тестовая база данных
 
 ## Структура проекта (важные каталоги и файлы)
 - app/ — backend код (FastAPI)main.py — точка входа приложения
@@ -64,6 +67,7 @@
 - schemas/ — Pydantic схемы
 - services/ — логика работы с внешними API (погода) и базой данных
 - utils/ - исключения и конвертеры
+- tests/ - тестирование
 - frontend/ — SPA frontend (html, css, javascript)
 - requirements.txt — зависимости Python
 - Dockerfile, docker-compose.yml, nginx.conf — контейнеризация
