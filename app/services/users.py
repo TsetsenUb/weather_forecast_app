@@ -1,5 +1,5 @@
 from app.crud.users import UserCrud
-from app.schemas.users import UserIn
+from app.schemas.users import UserIn, UserUpdate
 from app.models.users import User
 from app.core.security import verify_password, hash_password
 from app.utils.app_exceptions import (
@@ -51,7 +51,7 @@ class UserService:
             raise BadRequestUser400
         return db_user
 
-    async def update_user(self, user_id: int, user_data: UserIn) -> User:
+    async def update_user(self, user_id: int, user_data: UserUpdate) -> User:
         """
         Обновляет данные пользователя с указанным ID
         """
