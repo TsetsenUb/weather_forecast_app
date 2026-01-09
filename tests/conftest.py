@@ -13,3 +13,13 @@ def user_data() -> UserIn:
         email="user1@example.com",
         password="12345678",
     )
+
+
+@pytest_asyncio.fixture(scope="session")
+def new_user_data() -> UserIn:
+    return UserIn(
+        name="User2",
+        address="Saint Petersburg",
+        email="user2@example.com",
+        password="123456789",
+    )

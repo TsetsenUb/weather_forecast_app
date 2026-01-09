@@ -70,38 +70,40 @@ class TestUserCrud:
         self,
         db_session: AsyncSession,
         active_db_user: User,
-        new_user_data: dict,
+        data_for_update: dict,
     ) -> None:
         """
         Тестирование UserCrud.update_user
         Обновление данных пользователя в тестовой БД
         и проверка корректности обновления
         """
-        assert active_db_user.name != new_user_data["name"]
-        assert active_db_user.address != new_user_data["address"]
-        assert active_db_user.email != new_user_data["email"]
-        assert active_db_user.hashed_password != new_user_data["hashed_password"]
+
+        assert active_db_user.name != data_for_update["name"]
+        assert active_db_user.address != data_for_update["address"]
+        assert active_db_user.email != data_for_update["email"]
+        assert active_db_user.hashed_password != data_for_update["hashed_password"]
 
         user_crud = UserCrud(db_session)
-        result = await user_crud.update_user(1, new_user_data)
+        result = await user_crud.update_user(1, data_for_update)
 
-        assert result.name == new_user_data["name"]
-        assert result.address == new_user_data["address"]
-        assert result.email == new_user_data["email"]
-        assert result.hashed_password == new_user_data["hashed_password"]
+        assert result.name == data_for_update["name"]
+        assert result.address == data_for_update["address"]
+        assert result.email == data_for_update["email"]
+        assert result.hashed_password == data_for_update["hashed_password"]
 
     async def test_not_update_user(
         self,
         db_session: AsyncSession,
-        new_user_data: dict,
+        data_for_update: dict,
     ) -> None:
         """
         Тестирование UserCrud.update_user
         Попытка обновления несуществующего пользователя в тестовой БД
         и проверка на то что вернулось None
         """
+
         user_crud = UserCrud(db_session)
-        result = await user_crud.update_user(1, new_user_data)
+        result = await user_crud.update_user(1, data_for_update)
 
         assert result is None
 

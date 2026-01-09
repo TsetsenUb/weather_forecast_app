@@ -56,13 +56,12 @@ async def db_session(
 
 
 @pytest_asyncio.fixture(scope="class")
-def new_user_data() -> dict:
-    return {
-        "name": "User2",
-        "address": "Saint Petersburg",
-        "email": "user2@example.com",
-        "hashed_password": hash_password("123456789"),
-    }
+def data_for_update(new_user_data: UserIn) -> dict:
+    new_data = new_user_data.model_dump()
+    password = new_data.pop("password")
+    new_data["hashed_password"] = hash_password(password)
+
+    return new_data
 
 
 @pytest_asyncio.fixture
