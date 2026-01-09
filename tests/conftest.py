@@ -18,6 +18,8 @@ def user_data() -> UserIn:
 
 @pytest_asyncio.fixture(scope="session")
 def new_user_data() -> UserIn:
+    """Фикстура с данными для обновления пользователя"""
+
     return UserIn(
         name="User2",
         address="Saint Petersburg",
