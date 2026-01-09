@@ -55,3 +55,16 @@ async def updated_db_user(new_user_data: UserIn) -> User:
         hashed_password=hash_password(new_user_data.password),
         address=new_user_data.address,
     )
+
+
+@pytest_asyncio.fixture
+async def mock_owm_client(
+    mocker: MockerFixture,
+    owm_forecast_response,
+) -> MagicMock:
+    """Фикстура для мока OpenWeatherMapClient"""
+
+    mocker.patch(
+        "test_services_weather.OpenWeatherMapClient.__call__",
+        return_value=owm_forecast_response,
+    )
