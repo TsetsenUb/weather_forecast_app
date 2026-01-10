@@ -7,45 +7,46 @@ from app.schemas.forecast_schemas import Forecast
 
 @pytest.mark.smoke
 @pytest.mark.forecast
-async def test_get_city_weather_cache_hit(
-    test_client: AsyncClient,
-    mock_redis: AsyncMock,
-    mock_weather_service: AsyncMock,
-    forecast_example: str,
-    forecast: Forecast,
-):
-    """
-    Тестирование эндпоинта GET /api/forecast
-    Тест когда в кэше есть данных
-    """
+class TestForecastRouter:
 
-    mock_redis.get.return_value = forecast_example
+    async def test_get_city_weather_cache_hit(
+        self,
+        test_client: AsyncClient,
+        mock_redis: AsyncMock,
+        mock_weather_service: AsyncMock,
+        forecast_example: str,
+        forecast: Forecast,
+    ):
+        """
+        Тестирование эндпоинта GET /api/forecast
+        Тест когда в кэше есть данных
+        """
 
-    result = await test_client.get("api/forecast/", params={"city": "москва"})
+        mock_redis.get.return_value = forecast_example
 
-    assert result.status_code == 200
-    assert result.headers["content-type"] == "application/json"
-    assert forecast.model_dump() == result.json()
+        result = await test_client.get("api/forecast/", params={"city": "москва"})
 
+        assert result.status_code == 200
+        assert result.headers["content-type"] == "application/json"
+        assert forecast.model_dump() == result.json()
 
-@pytest.mark.smoke
-@pytest.mark.forecast
-async def test_get_city_weather_cache_miss(
-    test_client: AsyncClient,
-    mock_redis: AsyncMock,
-    mock_weather_service: AsyncMock,
-    forecast: Forecast,
-):
-    """
-    Тестирование эндпоинта GET /api/forecast
-    Тест когда в кэше нет данных
-    """
+    async def test_get_city_weather_cache_miss(
+        self,
+        test_client: AsyncClient,
+        mock_redis: AsyncMock,
+        mock_weather_service: AsyncMock,
+        forecast: Forecast,
+    ):
+        """
+        Тестирование эндпоинта GET /api/forecast
+        Тест когда в кэше нет данных
+        """
 
-    mock_redis.get.return_value = None
-    mock_weather_service.get_forecast.return_value = forecast
+        mock_redis.get.return_value = None
+        mock_weather_service.get_forecast.return_value = forecast
 
-    result = await test_client.get("api/forecast/", params={"city": "москва"})
+        result = await test_client.get("api/forecast/", params={"city": "москва"})
 
-    assert result.status_code == 200
-    assert result.headers["content-type"] == "application/json"
-    assert forecast.model_dump() == result.json()
+        assert result.status_code == 200
+        assert result.headers["content-type"] == "application/json"
+        assert forecast.model_dump() == result.json()
