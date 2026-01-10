@@ -32,7 +32,7 @@ class TestUserService:
         assert exception.detail in exc_value
         assert str(exception.status_code) in exc_value
 
-    async def test_login_user(
+    async def test_service_login_user(
         self,
         mock_user_crud: MagicMock,
         db_user: User,
@@ -50,7 +50,7 @@ class TestUserService:
 
         assert result == db_user
 
-    async def test_login_user_unauthorized_missing_user(
+    async def test_service_login_user_unauthorized_missing_user(
         self,
         mock_user_crud: MagicMock,
         user_data: UserIn,
@@ -71,7 +71,7 @@ class TestUserService:
             Unauthorized401,
         )
 
-    async def test_login_user_unauthorized_wrong_password(
+    async def test_service_login_user_unauthorized_wrong_password(
         self,
         mock_user_crud: MagicMock,
         db_user: User,
@@ -93,7 +93,7 @@ class TestUserService:
             Unauthorized401,
         )
 
-    async def test_login_user_unauthorized_not_active_user(
+    async def test_service_login_user_unauthorized_not_active_user(
         self,
         mock_user_crud: MagicMock,
         db_user: User,
@@ -116,7 +116,7 @@ class TestUserService:
             Unauthorized401,
         )
 
-    async def test_create_user_successful(
+    async def test_service_create_user_successful(
         self,
         mock_user_crud: MagicMock,
         db_user: User,
@@ -135,7 +135,7 @@ class TestUserService:
 
         assert result == db_user
 
-    async def test_create_user_badrequest(
+    async def test_service_create_user_badrequest(
         self,
         mock_user_crud: MagicMock,
         db_user: User,
@@ -157,7 +157,7 @@ class TestUserService:
             BadRequestEmail400,
         )
 
-    async def test_get_user_active(
+    async def test_service_get_user_active(
         self,
         mock_user_crud: MagicMock,
         db_user: User,
@@ -175,7 +175,7 @@ class TestUserService:
         assert result.id == 1
         assert result.is_active is True
 
-    async def test_get_user_not_active(
+    async def test_service_get_user_not_active(
         self,
         mock_user_crud: MagicMock,
         db_user: User,
@@ -194,7 +194,7 @@ class TestUserService:
         assert result.id == 1
         assert result.is_active is False
 
-    async def test_get_user_badrequest(
+    async def test_service_get_user_badrequest(
         self,
         mock_user_crud: MagicMock,
     ) -> None:
@@ -213,7 +213,7 @@ class TestUserService:
             BadRequestUser400,
         )
 
-    async def test_update_user_all_data(
+    async def test_service_update_user_all_data(
         self,
         mock_user_crud: MagicMock,
         db_user: User,
@@ -233,7 +233,7 @@ class TestUserService:
 
         assert result == updated_db_user
 
-    async def test_update_user_badrequest_email(
+    async def test_service_update_user_badrequest_email(
         self,
         mock_user_crud: MagicMock,
         db_user: User,
@@ -258,7 +258,7 @@ class TestUserService:
             BadRequestEmail400,
         )
 
-    async def test_update_user_badrequest_not_data(
+    async def test_service_update_user_badrequest_not_data(
         self,
         mock_user_crud: MagicMock,
     ) -> None:
@@ -279,7 +279,7 @@ class TestUserService:
             BadRequestNotData400,
         )
 
-    async def test_update_user_badrequest_user(
+    async def test_service_update_user_badrequest_user(
         self,
         mock_user_crud: MagicMock,
         user_update: UserUpdate,

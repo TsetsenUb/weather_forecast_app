@@ -9,22 +9,25 @@ from app.schemas.owm_schemas import OWMForecastResponse
 
 @pytest.mark.smoke
 @pytest.mark.weather_service
-async def test_weather_service(
-    mock_owm_client,
-    owm_forecast_response: OWMForecastResponse,
-) -> None:
-    """
-    Тестирование WeatherService
-    Получение прогноза погоды с помощью мок клиента и парсинг полученных данных
-    Проверка полученных данных на соответствие типов данных
-    """
+class TestWeatherService:
 
-    service = WeatherService(
-        OpenWeatherMapClient("appid", "base_url"),
-        OpenWeatherMapForecastParser(),
-    )
-    result = await service.get_forecast("Moscow")
+    async def test_service_get_forecast(
+        self,
+        mock_owm_client,
+        owm_forecast_response: OWMForecastResponse,
+    ) -> None:
+        """
+        Тестирование WeatherService
+        Получение прогноза погоды с помощью мок клиента и парсинг полученных данных
+        Проверка полученных данных на соответствие типов данных
+        """
 
-    assert isinstance(result, Forecast)
-    assert isinstance(result.forecasts[0][0], ForecastObj)
-    assert result.name == owm_forecast_response.city.name
+        service = WeatherService(
+            OpenWeatherMapClient("appid", "base_url"),
+            OpenWeatherMapForecastParser(),
+        )
+        result = await service.get_forecast("Moscow")
+
+        assert isinstance(result, Forecast)
+        assert isinstance(result.forecasts[0][0], ForecastObj)
+        assert result.name == owm_forecast_response.city.name

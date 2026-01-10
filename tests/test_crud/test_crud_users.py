@@ -11,7 +11,7 @@ from app.models.users import User
 @pytest.mark.user_crud
 class TestUserCrud:
 
-    async def test_create_user(
+    async def test_crud_create_user(
         self,
         db_session: AsyncSession,
         user_data: UserIn,
@@ -32,7 +32,7 @@ class TestUserCrud:
         assert result.is_active is True
         assert verify_password(user_data.password, result.hashed_password)
 
-    async def test_get_active_user(
+    async def test_crud_get_active_user(
         self,
         db_session: AsyncSession,
         active_db_user: User,
@@ -48,7 +48,7 @@ class TestUserCrud:
 
         assert result == active_db_user
 
-    async def test_get_not_active_user(
+    async def test_crud_get_not_active_user(
         self,
         db_session: AsyncSession,
         not_active_db_user: User,
@@ -66,7 +66,7 @@ class TestUserCrud:
 
         assert result is None
 
-    async def test_update_user(
+    async def test_crud_update_user(
         self,
         db_session: AsyncSession,
         active_db_user: User,
@@ -91,7 +91,7 @@ class TestUserCrud:
         assert result.email == data_for_update["email"]
         assert result.hashed_password == data_for_update["hashed_password"]
 
-    async def test_not_update_user(
+    async def test_crud_not_update_user(
         self,
         db_session: AsyncSession,
         data_for_update: dict,
@@ -107,7 +107,7 @@ class TestUserCrud:
 
         assert result is None
 
-    async def test_get_user_by_email(
+    async def test_crud_get_user_by_email(
         self,
         db_session: AsyncSession,
         active_db_user: User,
