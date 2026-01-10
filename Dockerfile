@@ -17,7 +17,10 @@ COPY ./requirements.txt .
 RUN pip install --upgrade pip==25.3 \
     && pip install --no-cache-dir -r requirements.txt
 
-COPY app app
+COPY app/ app/
+
+COPY tests/ tests/
+COPY pytest.ini .
 
 RUN chown -R backend_user:backend $HOME
 
