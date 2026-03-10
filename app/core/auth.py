@@ -45,7 +45,7 @@ async def get_authorized_user(
         token_data = TokenData(**payload)
     except jwt.ExpiredSignatureError:
         raise Expired401
-    except (jwt.PyJWKError, ValidationError):
+    except (jwt.PyJWTError, ValidationError):
         raise Unauthorized401
 
     user = await user_service.get_user(token_data.id)
