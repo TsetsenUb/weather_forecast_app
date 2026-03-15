@@ -13,6 +13,30 @@
 - **Прокси**: Nginx
 - **Тестирование**: Pytest
 
+## Демонстрация работы приложения
+
+<div style="display: flex; flex-direction: column; width: 100%; gap: 40px;">
+  <div style="width: 100%;">
+    <h3 style="text-align: center; margin-bottom: 10px;">Получение прогноза</h3>
+    <img src="gif_files/get_forecast.gif" alt="Получение прогноза" style="width: 100%; height: auto; display: block;"/>
+  </div>
+
+  <div style="width: 100%;">
+    <h3 style="text-align: center; margin-bottom: 10px;">Регистрация</h3>
+    <img src="gif_files/registration.gif" alt="Регистрация" style="width: 100%; height: auto; display: block;"/>
+  </div>
+
+  <div style="width: 100%;">
+    <h3 style="text-align: center; margin-bottom: 10px;">Вход в систему</h3>
+    <img src="gif_files/login.gif" alt="Вход в систему" style="width: 100%; height: auto; display: block;"/>
+  </div>
+
+  <div style="width: 100%;">
+    <h3 style="text-align: center; margin-bottom: 10px;">Выход и окно изменения пользователя</h3>
+    <img src="gif_files/quite.gif" alt="Выход" style="width: 100%; height: auto; display: block;"/>
+  </div>
+</div>
+
 ## Особенности
 - Быстрый REST API на FastAPI
 - ORM: SQLAlchemy
