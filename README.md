@@ -48,6 +48,9 @@
 - Client: SPA (frontend) в папке frontend
 - Тестирование: Pytest
 
+## Аутентификация и безопасность
+- Пароли хранятся в захешированном виде с использованием pwdlib.
+- JWT аутентификация
 
 ## Документация OpenAPI
 - http://localhost/api/docs
@@ -95,7 +98,3 @@
 - frontend/ — SPA frontend (html, css, javascript)
 - requirements.txt — зависимости Python
 - Dockerfile, docker-compose.yml, nginx.conf — контейнеризация
-
-## Аутентификация и безопасность
-- Пароли хранятся в захешированном виде с использованием pwdlib.
-- JWT аутентификация
