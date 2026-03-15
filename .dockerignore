@@ -1,0 +1,11 @@
+.git
+.gitignore
+.env.example
+.dockerignore
+.coverage
+*.log
+**/__pycache__
+__pycache__/
+venv/
+README.md
+gif_files/
