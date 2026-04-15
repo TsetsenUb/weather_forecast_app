@@ -9,3 +9,8 @@ __pycache__/
 venv/
 README.md
 gif_files/
+.pre-commit-config.yaml/
+.ruff_cache/
+pytest.ini
+tests/
+logs/
