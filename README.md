@@ -12,6 +12,8 @@
 - **Контейнеризация**: Docker + docker-compose
 - **Прокси**: Nginx
 - **Тестирование**: Pytest
+- **Зависимости**: UV
+- **Линтер и форматер**: ruff
 
 ## Демонстрация работы приложения
 
@@ -36,6 +38,15 @@
     <img src="gif_files/quite.gif" alt="Выход" style="width: 100%; height: auto; display: block;"/>
   </div>
 </div>
+
+## Как пользоваться
+- В файле .env установить свои:
+  - OWM_APPID (appid от Open weather map API)
+  - SECRET_KEY (сгенерировать можно командой openssl rand -hex 32)
+  - параметры для подключения к БД
+  - ALLOW_ORIGINS, ALLOW_METHODS, ALLOW_HEADERS
+- Собрать образ Docker и запустить командой: docker compose up -d --build
+- И пользоваться (по умолчанию по адресу localhost:80)
 
 ## Особенности
 - Быстрый REST API на FastAPI
