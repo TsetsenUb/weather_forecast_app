@@ -1,0 +1,66 @@
+[project]
+name = "weather-forecast-app"
+version = "0.0.1"
+authors = [
+    { name = "Ubushiev Tsetsen", email = "tsetsn@ynadex.ru" },
+]
+description = "Weather forecast app"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "annotated-doc==0.0.3",
+    "annotated-types==0.7.0",
+    "anyio==4.11.0",
+    "argon2-cffi==25.1.0",
+    "argon2-cffi-bindings==25.1.0",
+    "asyncpg==0.30.0",
+    "certifi==2025.10.5",
+    "cffi==2.0.0",
+    "click==8.3.0",
+    "colorama==0.4.6",
+    "coverage==7.13.1",
+    "dnspython==2.8.0",
+    "email-validator==2.3.0",
+    "fastapi==0.120.4",
+    "greenlet==3.2.4",
+    "h11==0.16.0",
+    "httpcore==1.0.9",
+    "httptools==0.7.1",
+    "httpx==0.28.1",
+    "idna==3.11",
+    "iniconfig==2.3.0",
+    "jinja2==3.1.6",
+    "markupsafe==3.0.3",
+    "packaging==25.0",
+    "pluggy==1.6.0",
+    "pwdlib==0.3.0",
+    "pycparser==2.23",
+    "pydantic==2.12.3",
+    "pydantic-core==2.41.4",
+    "pydantic-settings==2.11.0",
+    "pygments==2.19.2",
+    "pyjwt==2.10.1",
+    "python-dotenv==1.2.1",
+    "python-multipart==0.0.20",
+    "pyyaml==6.0.3",
+    "redis==7.1.0",
+    "sniffio==1.3.1",
+    "sqlalchemy==2.0.44",
+    "starlette==0.49.2",
+    "typing-extensions==4.15.0",
+    "typing-inspection==0.4.2",
+    "uvicorn==0.38.0",
+    "watchfiles==1.1.1",
+    "websockets==15.0.1",
+]
+
+[dependency-groups]
+dev = [
+    "aiosqlite>=0.22.1",
+    "pre-commit>=4.5.1",
+    "pytest>=9.0.3",
+    "pytest-asyncio>=1.3.0",
+    "pytest-cov>=7.1.0",
+    "pytest-mock>=3.15.1",
+    "ruff>=0.15.10",
+]

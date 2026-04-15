@@ -42,10 +42,7 @@ services:
     container_name: weather-backend
     restart: unless-stopped
     image: weather-backend:latest
-    command: uvicorn app.main:app --host 0.0.0.0 --port 8000
     env_file: .env
-    volumes:
-      - ./.env:/home/backend/app/.env
     networks:
       - weather-network
     depends_on:
