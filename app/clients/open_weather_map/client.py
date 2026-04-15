@@ -10,10 +10,7 @@ class OpenWeatherMapClient:
         self.__appid = appid
 
     async def __call__(
-            self,
-            city: str,
-            units: str = "metric",
-            lang: str = "ru"
+        self, city: str, units: str = "metric", lang: str = "ru"
     ) -> OWMForecastResponse:
         """
         Отправляет get запрос на open weather map
@@ -30,10 +27,12 @@ class OpenWeatherMapClient:
                     "type": "like",
                     "units": units,
                     "lang": lang,
-                    "APPID": self.__appid
-                }
+                    "APPID": self.__appid,
+                },
             )
             if response.status_code != 200:
-                raise HTTPException(status_code=response.status_code, detail=response.json()["message"])
+                raise HTTPException(
+                    status_code=response.status_code, detail=response.json()["message"]
+                )
 
             return OWMForecastResponse.model_validate_json(response.text)

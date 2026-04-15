@@ -30,8 +30,8 @@ def get_owp_parser() -> OpenWeatherMapForecastParser:
 
 
 def get_weather_service(
-        owp_client: Annotated[OpenWeatherMapClient, Depends(get_owp_client)],
-        owp_parser: Annotated[OpenWeatherMapForecastParser, Depends(get_owp_parser)]
+    owp_client: Annotated[OpenWeatherMapClient, Depends(get_owp_client)],
+    owp_parser: Annotated[OpenWeatherMapForecastParser, Depends(get_owp_parser)],
 ) -> WeatherService:
     """
     Возвращает объект класса WeatherService
@@ -40,7 +40,7 @@ def get_weather_service(
 
 
 def get_user_service(
-        user_crud: Annotated[UserCrud, Depends(get_user_crud)]
+    user_crud: Annotated[UserCrud, Depends(get_user_crud)],
 ) -> UserService:
     """
     Возвращает объект класса UserService
@@ -49,8 +49,8 @@ def get_user_service(
 
 
 async def get_current_user(
-        token: Annotated[str, Depends(oauth2_scheme)],
-        user_crud: Annotated[UserService, Depends(get_user_service)]
+    token: Annotated[str, Depends(oauth2_scheme)],
+    user_crud: Annotated[UserService, Depends(get_user_service)],
 ) -> User:
     """
     Возвращает текущего авторизированного пользователя
@@ -60,7 +60,7 @@ async def get_current_user(
 
 
 async def get_query_city(
-        city: Annotated[str, Query(..., min_length=3, max_length=50)]
+    city: Annotated[str, Query(..., min_length=3, max_length=50)],
 ) -> str:
     """
     Возвращает Query-параметр city, после применения методов strip и title

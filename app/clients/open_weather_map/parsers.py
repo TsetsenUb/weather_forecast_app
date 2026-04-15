@@ -4,7 +4,6 @@ from app.schemas.forecast_schemas import ForecastObj, Forecast
 
 
 class OpenWeatherMapForecastParser:
-
     def __call__(self, owm_response: OWMForecastResponse) -> Forecast:
         """
         Парсит данные OWMForecastResponse и возвращает Forecast
@@ -18,10 +17,12 @@ class OpenWeatherMapForecastParser:
             lat=owm_response.city.coord.lat,
             lon=owm_response.city.coord.lon,
             timezone_sec=owm_response.city.timezone,
-            forecasts=forecasts
+            forecasts=forecasts,
         )
 
-    def __parse_forecasts(self, forecast_list: list[ForecastItem]) -> list[list[ForecastObj]]:
+    def __parse_forecasts(
+        self, forecast_list: list[ForecastItem]
+    ) -> list[list[ForecastObj]]:
         """
         Парсит данные из OWMForecastResponse.list
         и возвращает список со списками содержащими ForecastObj
@@ -42,7 +43,7 @@ class OpenWeatherMapForecastParser:
                 weather_description=item.weather[0].description.capitalize(),
                 weather_icon=item.weather[0].icon,
                 wind_speed=item.wind.speed,
-                wind_direction=conv.degrees_to_direction(item.wind.deg)
+                wind_direction=conv.degrees_to_direction(item.wind.deg),
             )
 
             if prev_date is None or prev_date == dt_date:

@@ -8,7 +8,6 @@ from app.schemas.forecast_schemas import Forecast
 @pytest.mark.smoke
 @pytest.mark.forecast
 class TestForecastRouter:
-
     async def test_get_city_weather_cache_hit(
         self,
         test_client: AsyncClient,

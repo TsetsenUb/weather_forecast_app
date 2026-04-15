@@ -5,6 +5,7 @@ class ForecastObj(BaseModel):
     """
     Схема с прогнозом за определенный период (обычно 3-х часовой)
     """
+
     dt_date: str
     dt_time: str
     temperature: int
@@ -20,6 +21,7 @@ class Forecast(BaseModel):
     """
     Схема прогноза погоды
     """
+
     name: str
     country: str
     lat: float

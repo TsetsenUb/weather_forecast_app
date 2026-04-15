@@ -11,7 +11,6 @@ from app.core.config import settings
 @pytest.mark.smoke
 @pytest.mark.users
 class TestUserRouter:
-
     @staticmethod
     def check_response(
         response: httpx.Response,
@@ -125,7 +124,7 @@ class TestUserRouter:
             "api/users/token",
             data={
                 "username": dict_user_data["email"],
-                "password": dict_user_data["password"]
+                "password": dict_user_data["password"],
             },
         )
 

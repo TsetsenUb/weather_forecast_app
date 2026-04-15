@@ -17,7 +17,7 @@ router = APIRouter(prefix="/forecast", tags=["Forecast"])
 async def get_city_weather(
     city: Annotated[str, Depends(get_query_city)],
     redis: Annotated[Redis, Depends(get_redis)],
-    weather_service: Annotated[WeatherService, Depends(get_weather_service)]
+    weather_service: Annotated[WeatherService, Depends(get_weather_service)],
 ):
     """
     Возвращает прогноз погоды на 5 дней для указанного города.

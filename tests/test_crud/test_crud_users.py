@@ -10,7 +10,6 @@ from app.models.users import User
 @pytest.mark.smoke
 @pytest.mark.user_crud
 class TestUserCrud:
-
     async def test_crud_create_user(
         self,
         db_session: AsyncSession,

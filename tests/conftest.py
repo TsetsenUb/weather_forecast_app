@@ -106,9 +106,7 @@ async def owm_forecast_response(
     Фикстура для получения объекта OWMForecastResponse
     """
 
-    return OWMForecastResponse.model_validate_json(
-        open_weather_map_response_example
-    )
+    return OWMForecastResponse.model_validate_json(open_weather_map_response_example)
 
 
 @pytest_asyncio.fixture(scope="session")

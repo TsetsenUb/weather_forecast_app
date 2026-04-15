@@ -10,7 +10,6 @@ from app.schemas.owm_schemas import OWMForecastResponse
 @pytest.mark.smoke
 @pytest.mark.weather_service
 class TestWeatherService:
-
     async def test_service_get_forecast(
         self,
         mock_owm_client,

@@ -65,10 +65,7 @@ def data_for_update(new_user_data: UserIn) -> dict:
 
 
 @pytest_asyncio.fixture
-async def active_db_user(
-    db_session: AsyncSession,
-    user_data: UserIn
-) -> User:
+async def active_db_user(db_session: AsyncSession, user_data: UserIn) -> User:
     """Фикстура для создания тестового пользователя в БД"""
 
     test_user = User(
@@ -86,10 +83,7 @@ async def active_db_user(
 
 
 @pytest_asyncio.fixture
-async def not_active_db_user(
-    db_session: AsyncSession,
-    user_data: UserIn
-) -> User:
+async def not_active_db_user(db_session: AsyncSession, user_data: UserIn) -> User:
     """Фикстура для создания тестового пользователя в БД"""
 
     test_user = User(

@@ -16,7 +16,6 @@ from app.utils.app_exceptions import (
 @pytest.mark.smoke
 @pytest.mark.user_service
 class TestUserService:
-
     @staticmethod
     def check_exception(
         excinfo: pytest.ExceptionInfo,
@@ -86,7 +85,7 @@ class TestUserService:
         mock_user_crud.get_user_by_email.return_value = db_user
         user_service = UserService(mock_user_crud)
         with pytest.raises(Unauthorized401) as excinfo:
-            await user_service.login_user(user_data.email, user_data.password+"1")
+            await user_service.login_user(user_data.email, user_data.password + "1")
 
         self.check_exception(
             excinfo,

@@ -19,7 +19,9 @@ def create_access_token(data: dict) -> str:
     """
 
     to_encode = data.copy()
-    expire = datetime.now(timezone.utc) + timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
+    expire = datetime.now(timezone.utc) + timedelta(
+        minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES
+    )
     to_encode.update({"exp": expire})
     return jwt.encode(
         to_encode,
@@ -28,10 +30,7 @@ def create_access_token(data: dict) -> str:
     )
 
 
-async def get_authorized_user(
-        token: str,
-        user_service: UserService
-) -> User:
+async def get_authorized_user(token: str, user_service: UserService) -> User:
     """
     Проверяет JWT и возвращает пользователя из базы.
     """

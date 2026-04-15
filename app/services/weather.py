@@ -5,9 +5,7 @@ from app.schemas.forecast_schemas import Forecast
 
 class WeatherService:
     def __init__(
-            self,
-            client: OpenWeatherMapClient,
-            parser: OpenWeatherMapForecastParser
+        self, client: OpenWeatherMapClient, parser: OpenWeatherMapForecastParser
     ) -> None:
         self.client = client
         self.parser = parser

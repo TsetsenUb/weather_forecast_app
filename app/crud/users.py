@@ -19,7 +19,7 @@ class UserCrud:
             name=user.name,
             email=user.email,
             address=user.address,
-            hashed_password=hash_password(user.password)
+            hashed_password=hash_password(user.password),
         )
         self.db.add(new_user)
         await self.db.commit()
@@ -45,9 +45,7 @@ class UserCrud:
             return
 
         await self.db.execute(
-            update(User)
-            .where(User.id == user_id)
-            .values(**new_user_data)
+            update(User).where(User.id == user_id).values(**new_user_data)
         )
         await self.db.commit()
         await self.db.refresh(updated_user)
@@ -60,8 +58,5 @@ class UserCrud:
         иначе - None
         """
 
-        db_user = await self.db.scalar(
-            select(User)
-            .where(User.email == email)
-        )
+        db_user = await self.db.scalar(select(User).where(User.email == email))
         return db_user

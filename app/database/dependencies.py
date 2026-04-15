@@ -16,7 +16,7 @@ async def get_async_db() -> AsyncGenerator[AsyncSession, None]:
 
 
 async def get_user_crud(
-        db_session: Annotated[AsyncSession, Depends(get_async_db)]
+    db_session: Annotated[AsyncSession, Depends(get_async_db)],
 ) -> UserCrud:
     """
     Возвращает объект класса UserCrud для работы с базой данных

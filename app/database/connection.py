@@ -22,9 +22,7 @@ async_engine = create_async_engine(
 )
 
 async_session_maker = async_sessionmaker(
-    bind=async_engine,
-    expire_on_commit=False,
-    class_=AsyncSession
+    bind=async_engine, expire_on_commit=False, class_=AsyncSession
 )
 
 

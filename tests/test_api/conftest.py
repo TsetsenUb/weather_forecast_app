@@ -11,11 +11,7 @@ from app.services.weather import WeatherService
 from app.services.users import UserService
 from app.models.users import User
 from app.database.dependencies import get_redis
-from app.api.dependencies import (
-    get_weather_service,
-    get_user_service,
-    get_current_user
-)
+from app.api.dependencies import get_weather_service, get_user_service, get_current_user
 
 
 @pytest_asyncio.fixture(autouse=True)

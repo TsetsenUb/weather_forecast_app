@@ -23,8 +23,11 @@ class UserService:
 
         db_user = await self.user_crud.get_user_by_email(email)
 
-        if not db_user or db_user.is_active is False or \
-           not verify_password(password, db_user.hashed_password):
+        if (
+            not db_user
+            or db_user.is_active is False
+            or not verify_password(password, db_user.hashed_password)
+        ):
             raise Unauthorized401
 
         return db_user
